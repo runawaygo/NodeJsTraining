@@ -1,0 +1,31 @@
+<html>
+  <script src="../jquery-3.1.1.min.js"></script>
+  <script>
+    $(()=>{
+      $("#word_input").keydown((e)=>{
+        if(e.key === "Enter"){
+          $.post("http://127.0.0.1:1300/send", {name:$("#name_input").val(),  text: $("#word_input").val()}, function(data, ret){
+            console.log(data)
+          }, "json")
+        }
+      })
+
+      setInterval(()=>{
+        $.getJSON("http://127.0.0.1:1300/chatlist", (data)=>{
+          $("#chat_list").html("")  
+          for(let i = data.length-1;i>=0;i--){
+            $("#chat_list").append(new Date(data[i].date))
+            $("#chat_list").append("<br/>")
+            $("#chat_list").append(data[i].name + " : " + data[i].text)
+            $("#chat_list").append("<br/>")
+          }
+        })
+      },1000)
+    })  
+  </script>
+  <h1>对话列表</h1>
+  <h3 id="chat_list">
+  </h3>
+
+  <input  id="name_input"/><input id="word_input"/>
+</html>

@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/runawaygo/NodeJsTraining/issues"
   },
-  "homepage": "https://github.com/runawaygo/NodeJsTraining"
+  "homepage": "https://github.com/runawaygo/NodeJsTraining",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "sails": "^0.12.9"
+  }
 }
