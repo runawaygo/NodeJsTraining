@@ -1,0 +1,36 @@
+<html>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="/js/dependencies/sails.io.js"></script>
+  <script type="text/javascript">
+    $(()=>{
+      io.socket.on('message', (body) =>{
+        const data = body.data
+        $("#chat_list").append(new Date(data.updatedAt))
+        $("#chat_list").append("<br/>")
+        $("#chat_list").append(data.name + " : " + data.text)
+        $("#chat_list").append("<br/>")
+      });
+      
+      io.socket.get('/message', (body, response) =>{
+        console.log('Current users: ', body);
+      })
+
+      $("#word_input").keydown((e)=>{
+        if(e.key === "Enter"){
+          // socket.emit('chat message', {name:$("#name_input").val(),  text: $("#word_input").val()});
+          io.socket.post('/message', {name:$("#name_input").val(),  text: $("#word_input").val()}, (data, response) =>{
+            $("#chat_list").append(new Date(data.updatedAt))
+            $("#chat_list").append("<br/>")
+            $("#chat_list").append(data.name + " : " + data.text)
+            $("#chat_list").append("<br/>")
+          })
+        }
+      })
+    })  
+  </script>
+  <h1>对话列表</h1>
+  <h3 id="chat_list">
+  </h3>
+
+  <input  id="name_input"/><input id="word_input"/>
+</html>
