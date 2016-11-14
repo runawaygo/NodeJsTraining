@@ -1,0 +1,27 @@
+<html>
+  <script src="../jquery-3.1.1.min.js"></script>
+  <script src="http://127.0.0.1:1300/socket.io/socket.io.js"></script>
+  <script>
+    $(()=>{
+      var socket = io("ws://127.0.0.1:1300");
+
+      $("#word_input").keydown((e)=>{
+        if(e.key === "Enter"){
+          socket.emit('chat message', {name:$("#name_input").val(),  text: $("#word_input").val()});
+        }
+      })
+
+      socket.on('chat message', function(data){
+        $("#chat_list").append(new Date(data.date))
+        $("#chat_list").append("<br/>")
+        $("#chat_list").append(data.name + " : " + data.text)
+        $("#chat_list").append("<br/>")
+      });
+    })  
+  </script>
+  <h1>对话列表</h1>
+  <h3 id="chat_list">
+  </h3>
+
+  <input  id="name_input"/><input id="word_input"/>
+</html>
