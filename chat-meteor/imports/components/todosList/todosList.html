@@ -1,0 +1,26 @@
+<header>
+  <h1>Chat 42</h1>
+ <br/>
+ <input ng-model="$ctrl.name" type="text" name="name" placeholder="name"/>
+  <form class="new-task" ng-submit="$ctrl.addTask($ctrl.newTask)">
+    
+    <input ng-model="$ctrl.text" type="text" name="text" placeholder="text" ng-keypress="alert($event)" />
+  </form>
+  
+</header>
+
+<ul>
+  <li ng-repeat="data in $ctrl.tasks" ng-class="{'checked': task.checked}">
+    <!-- <button class="delete" ng-click="$ctrl.removeTask(task)">&times;</button> -->
+ 
+    <!-- <input type="checkbox" ng-checked="task.checked" ng-click="$ctrl.setChecked(task)" class="toggle-checked"/> -->
+ 
+    <span class="text">
+      {{data.date}}
+      <br/>
+      {{data.name}} : {{data.text}}
+    </span>
+  </li>
+</ul>
+ 
+<ul>
